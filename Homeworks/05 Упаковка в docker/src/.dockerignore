@@ -1,0 +1,7 @@
+**/bin
+**/obj
+**/*.lscache
+**/*.sqlite
+.vs
+.dockerignore
+Dockerfile
