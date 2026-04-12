@@ -1,0 +1,8 @@
+**/bin
+**/obj
+**/*.lscache
+**/*.sqlite
+.vs
+.dockerignore
+dockerfile
+docker-compose.yml

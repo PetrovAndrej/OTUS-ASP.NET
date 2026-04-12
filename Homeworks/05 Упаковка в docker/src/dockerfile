@@ -1,0 +1,14 @@
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build-env
+WORKDIR /src/
+COPY --parents ./**/*.csproj ./
+COPY PromoCodeFactory.slnx ./
+RUN dotnet restore PromoCodeFactory.slnx
+COPY ./ ./
+RUN dotnet publish ./PromoCodeFactory.WebHost/PromoCodeFactory.WebHost.csproj -o '/app/' --no-restore /p:UseAppHost=false
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS run-env
+WORKDIR /app/
+COPY --from=build-env /app/ ./
+EXPOSE 8080
+VOLUME [ "/app/db" ]
+ENTRYPOINT [ "dotnet", "PromoCodeFactory.WebHost.dll" ]
